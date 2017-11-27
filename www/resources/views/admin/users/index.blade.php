@@ -22,11 +22,16 @@
 						<td>{{$user->name}}</td>
 						<td>{{$user->email}}</td>
 						<td>
-							<div class="btn-group btn-group-sm">
-								<a type="button" class="btn btn-default" href="users/{{$user->id}}">Edit</a>
-								<a type="button" class="btn btn-default" href="#">Reset Password</a>
-								<a type="button" class="btn btn-default" href="users/delete/{{$user->id}}">Delete</a>
-							</div>
+							<form method="delete" action="/admin/users/{{$user->id}}" class="btn-group">
+								<div class="btn-group btn-group-sm">
+									<a type="button" class="btn btn-warning" href="users/{{$user->id}}/edit">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</a>
+									<button type="submit" class="btn btn-danger">
+										<span class="glyphicon glyphicon-trash"></span>
+									</button>	
+								</div>
+							</form>
 						</td>
 					</tr>
 				@endforeach

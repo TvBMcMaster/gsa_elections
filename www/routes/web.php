@@ -17,4 +17,6 @@ Route::get('/', function () {
 
 Route::get('/admin', 'AdminController@index');
 
-Route::resource('/admin/users', 'Admin\UsersController');
+Route::resource('/admin/users', 'Admin\UsersController', [
+	'except' => ['show']
+]);
