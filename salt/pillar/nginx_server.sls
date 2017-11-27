@@ -1,5 +1,15 @@
 nginx:
   ng:
+    server:
+      config:
+        http:
+          log_format: |
+            upstream_time 
+            '$remote_addr - $remote_user [$time_local] ' 
+            '"$request" $status $body_bytes_sent '
+            '"$http_referer" "$http_user_agent"'
+          include:
+            - /etc/nginx/sites-enabled/*
     servers:
       managed:
         electio.dev:
@@ -24,7 +34,8 @@ nginx:
                 - /index.php?$query_string
               
               - access_log:
-                - off
+                - /var/log/nginx/electio-access.log
+                - upstream_time
 
               - error_log:
                 - /var/log/nginx/electio.dev-error.log
