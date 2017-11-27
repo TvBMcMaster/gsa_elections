@@ -1,6 +1,8 @@
 postgres:
   use_upstream_repo: False
+  
   bin_dir: /usr/lib/postgresql/9.5/bin
+
   server_bins:
     - initdb
     - pg_controldata
@@ -10,6 +12,7 @@ postgres:
     - postgresql95-check-db-dir
     - postgresql95-setup
     - postmaster
+
   client_bins:
     - clusterdb
     - createdb
@@ -35,7 +38,9 @@ postgres:
     - psql
     - reindexdb
     - vacuumdb
+
   conf_dir: /etc/postgresql/9.5/main
+
   users:
     homestead:
       ensure: present
@@ -47,3 +52,10 @@ postgres:
   databases:
     homestead:
       owner: 'homestead'
+
+  acls:
+    - ['host', 'homestead', 'homestead', '0.0.0.0/0', 'md5']
+    - ['host', 'homestead', 'homestead', '::/0', 'md5']
+
+  postgresconf: |
+    listen_addresses = '*'  # listen on all interfaces
