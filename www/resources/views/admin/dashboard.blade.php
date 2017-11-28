@@ -1,6 +1,21 @@
 @extends('admin.base')
 
 @section('admin_content')
-	<h1>Admin Dashboard</h1>
-	<p>The Admin Dashboard</p>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">Admin Dashboard</div>
+
+            <div class="panel-body">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                You are logged in!
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -1,8 +1,11 @@
-@extends('layouts.base')
+@extends('layouts.app')
+
+@section('navbar')
+  @include('admin.includes.navbar')
+@endsection
 
 @section('content')
-  @include('admin.includes.navbar')
-  <div class="container">
-  	@yield('admin_content')
-  </div>
+<div class="container">
+  @yield('admin_content')
+</div>
 @endsection
