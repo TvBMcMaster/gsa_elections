@@ -11,16 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/admin', 'AdminController@index')->name('admin');
-
-Route::resource('/admin/users', 'Admin\UsersController', [
-	'except' => ['show']
-]);
-
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::group(['middleware'=>'auth'], function(){
+	Route::get('/', 'DashboardController@index');
+	Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');	
+});
+
+
+/*
+|---------------------
+|  Admin Routes
+|---------------------
+|
+| The routes to define the administration routes
+|
+*/
+
+Route::group(['middleware'=>'auth', 'prefix'=> 'admin'], function(){
+	Route::get('', 'Admin\DashboardController@index');
+	Route::get('dashboard', 'Admin\DashboardController@dashboard')->name('admin.dashboard');
+	Route::resource('users', 'Admin\UsersController', ['except'=>['show']]);
+});
