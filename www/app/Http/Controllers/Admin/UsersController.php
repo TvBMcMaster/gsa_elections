@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Organization;
 
 class UsersController extends Controller
 {
@@ -15,7 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::with('organization')->get();
         return view('admin.users.index')->with('users', $users);
     }
 
@@ -26,7 +28,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $organizations = Organization::all();
+        return view('admin.users.create', compact('organizations'));
     }
 
     /**
@@ -37,6 +40,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+
         $name = $request->name;
         $email = $request->email;
         $password = bcrypt($request->password);
@@ -45,7 +49,9 @@ class UsersController extends Controller
         $user->name = $name;
         $user->email = $email;
         $user->password = $password;
-
+        if (!$request->organization == -1) {
+            $user->organization->associate($request->organization);
+        }
         $user->save();
 
         return redirect('/admin/users');
@@ -60,7 +66,20 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.users.edit')->with('user', $user);
+        $organizations = Organization::all();
+        return view('admin.users.edit', compact(['user', 'organizations']));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = User::with('organization')->findOrFail($id);
+        return view('admin.users.show')->with('user', $user);
     }
 
     /**
@@ -75,8 +94,11 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
+        if ($request->organization > 0) {  
+            $user->organization_id = $request->organization;
+        } 
         $user->save();
-        return redirect('/admin/users/');
+        return redirect(route('users.index'));
     }
 
     /**
@@ -88,6 +110,6 @@ class UsersController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect('/admin/users');
+        return redirect(route('users.index'));
     }
 }

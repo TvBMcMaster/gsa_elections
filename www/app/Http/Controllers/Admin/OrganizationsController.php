@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Organization;
 
 class OrganizationsController extends Controller
 {
@@ -14,7 +15,8 @@ class OrganizationsController extends Controller
      */
     public function index()
     {
-        //
+        $organizations = Organization::all();
+        return view('admin.organizations.index', compact('organizations'));
     }
 
     /**
@@ -24,7 +26,7 @@ class OrganizationsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.organizations.create');
     }
 
     /**
@@ -35,7 +37,13 @@ class OrganizationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $org = new Organization();
+        $org->name = $request->name;
+        $org->description = $request->description;
+        $org->slug = $request->slug;
+        $org->save();
+
+        return redirect(route('organizations.index'));
     }
 
     /**
@@ -46,7 +54,8 @@ class OrganizationsController extends Controller
      */
     public function show($id)
     {
-        //
+        $organization = Organization::with('users')->findOrFail($id);
+        return view('admin.organizations.show', compact('organization'));
     }
 
     /**
@@ -57,7 +66,8 @@ class OrganizationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $organization = Organization::findOrFail($id);
+        return view('admin.organizations.edit', compact('organization'));
     }
 
     /**
@@ -69,7 +79,13 @@ class OrganizationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $organization = Organization::findOrFail($id);
+
+        $organization->name = $request->name;
+        $organization->slug = $request->slug;
+        $organization->description = $request->description;
+        $organization->save();
+        return redirect(route('organizations.index'));
     }
 
     /**

@@ -22,6 +22,9 @@
                 <li>
                     <a href="{{ route('users.index') }}">Users</a>
                 </li>
+                <li>
+                    <a href="{{ route('organizations.index') }}">Organizations</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

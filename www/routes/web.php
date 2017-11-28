@@ -31,5 +31,6 @@ Route::middleware(['auth'])->group(function(){
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function(){
 	Route::get('', 'Admin\DashboardController@index');
 	Route::get('dashboard', 'Admin\DashboardController@dashboard')->name('admin.dashboard');
-	Route::resource('users', 'Admin\UsersController', ['except'=>['show']]);
+	Route::resource('users', 'Admin\UsersController');
+	Route::resource('organizations', 'Admin\OrganizationsController');
 });

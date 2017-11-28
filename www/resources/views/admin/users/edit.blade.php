@@ -3,7 +3,7 @@
 @section('admin_content')
 	<h1>Edit User</h1>
 	<a type="button" href="/admin/users" class="btn btn-warning">All Users</a>
-	<form method="POST" action="/admin/users/{{$user->id}}">
+	<form method="POST" action="{{route('users.update', ['user'=>$user->id])}}">
 		<input name="_method" type="hidden" value="PUT">
 		{{ csrf_field() }}
 		<div class="form-group">
@@ -13,6 +13,15 @@
 		<div class="form-group">
 			<label for="email">Email:</label>
 			<input type="email" name="email" class="form-control" value="{{$user->email}}">
+		</div>
+		<div class="form-group">
+			<label for="organization">Organization</label>
+			<select class="form-control" name="organization">  
+				<option value=-1>(None)</option>
+				@foreach($organizations as $organization)
+					<option value={{$organization->id}} @if($user->organization_id == $organization->id) selected="selected"@endif>{{$organization->name}}</option>
+				@endforeach
+			</select>
 		</div>
 		<button type="submit" class="btn btn-primary">Update</button>
 	</form>

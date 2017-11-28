@@ -2,7 +2,7 @@
 
 @section('admin_content')
 	<h1>Users - List</h1>
-	<p>List of all users  <a class="btn btn-primary" href="users/create">New User</a></p>
+	<p>List of all users  <a class="btn btn-primary" href="{{route('users.create')}}">New User</a></p>
 	
 
 	@if(count($users) > 0)
@@ -12,6 +12,7 @@
 					<th>ID</th>
 					<th>Name</th>
 					<th>Email</th>
+					<th>Organization</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -19,12 +20,19 @@
 				@foreach($users as $user)
 					<tr>
 						<td>{{$user->id}}</td>
-						<td>{{$user->name}}</td>
+						<td><a href="{{route('users.show', ['user' => $user->id])}}">{{$user->name}}</a></td>
 						<td>{{$user->email}}</td>
 						<td>
-							<form method="delete" action="/admin/users/{{$user->id}}" class="btn-group">
+							@if(!is_null($user->organization))
+								<a href="{{route('organizations.show', ['organization'=>$user->organization->id])}}">
+									{{$user->organization->name}}
+								</a>
+							@endif
+						</td>
+						<td>
+							<form method="delete" action="{{route('users.destroy', ['user'=>$user->id])}}" class="btn-group">
 								<div class="btn-group btn-group-sm">
-									<a type="button" class="btn btn-warning" href="users/{{$user->id}}/edit">
+									<a type="button" class="btn btn-warning" href="{{route('users.edit', ['user'=>$user->id])}}">
 										<span class="glyphicon glyphicon-pencil"></span>
 									</a>
 									<button type="submit" class="btn btn-danger">
