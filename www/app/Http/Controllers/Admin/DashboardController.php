@@ -9,6 +9,8 @@ class DashboardController extends Controller
 {   
     /**
       * Redirect to dashboard if authenticated
+      * 
+      * @return \Illuminate\Http\Response
       */
     public function index()
     {

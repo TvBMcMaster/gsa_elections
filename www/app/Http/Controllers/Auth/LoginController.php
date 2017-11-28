@@ -26,9 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
-    protected $redirectToAdmin = '/admin/dashboard';
-
+    
     /**
      * Create a new controller instance.
      *
@@ -46,9 +44,9 @@ class LoginController extends Controller
      */
     public function authenticated($request, $user) {
         if ($user->hasRole('administrator')) {
-            return redirect()->intended($this->redirectToAdmin);
+            return redirect()->intended(route('admin.dashboard'));
         } else {
-            return redirect()->intended($this->redirectTo);
+            return redirect()->intended(route('dashboard'));
         }
     }
 }
