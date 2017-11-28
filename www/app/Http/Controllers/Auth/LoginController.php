@@ -37,12 +37,14 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    protected $redirectTo = '/dashboard';
+    
     /**
      * Get the post register / login redirect path.
      *
      * @return string
      */
-    public function authenticated($request, $user) {
+    public function _authenticated($request, $user) {
         if ($user->hasRole('administrator')) {
             return redirect()->intended(route('admin.dashboard'));
         } else {
