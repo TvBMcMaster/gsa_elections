@@ -17,7 +17,7 @@ class AllowOnlyAdmin
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if (!Auth::guard($guard)->user()->hasRole('administrator')) 
+            if (!Auth::guard($guard)->user()->hasRole('admin')) 
             {
                 return abort(401, "Admin Required Here");
             }

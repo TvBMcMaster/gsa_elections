@@ -1,9 +1,9 @@
 @extends('admin.base')
 
 @section('admin_content')
-	<h1>Users - List</h1>
-	<p>List of all users  <a class="btn btn-primary" href="{{route('users.create')}}">New User</a></p>
-	
+	<h1>Users
+	<a class="btn btn-primary" href="{{route('users.create')}}">New User</a>
+	</h1>
 
 	@if(count($users) > 0)
 		<table class="table table-striped">
@@ -13,6 +13,7 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th>Organization</th>
+					<th>Role</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -29,17 +30,18 @@
 								</a>
 							@endif
 						</td>
+						<td>	
+							<span class="badge">{{ strtoupper($user->role->slug)}}</span>
+						</td>
 						<td>
-							<form method="delete" action="{{route('users.destroy', ['user'=>$user->id])}}" class="btn-group">
-								<div class="btn-group btn-group-sm">
-									<a type="button" class="btn btn-warning" href="{{route('users.edit', ['user'=>$user->id])}}">
-										<span class="glyphicon glyphicon-pencil"></span>
-									</a>
-									<button type="submit" class="btn btn-danger">
-										<span class="glyphicon glyphicon-trash"></span>
-									</button>	
-								</div>
-							</form>
+							<div class="btn-group btn-group-sm">
+            					<a type="button" class="btn btn-warning" href="{{route('users.edit', ['user'=>$user->id])}}">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a>
+        						<a class="btn btn-danger" href="#">
+        							<span class="glyphicon glyphicon-trash"></span>
+        						</a>
+            				</div>
 						</td>
 					</tr>
 				@endforeach

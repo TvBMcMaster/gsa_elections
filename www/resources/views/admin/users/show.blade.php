@@ -8,4 +8,5 @@
 	@else
 	<p>Unaffiliated to an organization</p>
 	@endif
+	<a href="{{route('users.index')}}" class="btn btn-default">Back</a>
 @endsection

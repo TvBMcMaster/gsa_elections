@@ -1,9 +1,10 @@
 @extends('admin.base')
 
 @section('admin_content')
-	<h1>Organizations Admin</h1>
-	<p>List of all organizations  <a class="btn btn-primary" href="{{route('organizations.create')}}">New Organization</a></p>
-
+	<h1>Organizations
+	<a class="btn btn-primary" href="{{route('organizations.create')}}">New Organization</a>
+	</h1>
+	
 	@if(count($organizations) > 0 )
 	<table class='table table-striped'>
 		<thead>
@@ -27,7 +28,7 @@
 					</td>
 					<td>{{ $organization->description }}</td>
 					<td>{{ $organization->slug }}</td>
-					<td>{{ count($organization->users) }}</td>
+					<td><span class="badge">{{ count($organization->users) }}</span></td>
 					<td>
 						<form method="delete" action="{{ route('organizations.destroy', ['organization'=>$organization->id]) }}" class="btn-group">
 							<div class="btn-group btn-group-sm">

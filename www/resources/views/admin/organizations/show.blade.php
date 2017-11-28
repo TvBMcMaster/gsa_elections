@@ -5,7 +5,7 @@
 	<small>{{ $organization->slug}}</small>
 	<p>{{ $organization->description}}</p>
 
-	@if(count($organization->users()) > 0)
+	@if(count($organization->users) > 0)
 		<h4>Org Users</h4>
 		<table class='table table-striped'>
 			<thead>
@@ -27,4 +27,5 @@
 	@else
 		<p>No users assigned to this organization.</p>
 	@endif
+	<a href="{{route('organizations.index')}}" class="btn btn-default">Back</a>
 @endsection

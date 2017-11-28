@@ -18,5 +18,6 @@
 			<input type="slug" class="form-control" name="slug" id="slug">
 		</div>
 		<button type='submit' class="btn btn-default">Submit</button>
+		<a href="{{route('organizations.index')}}" class="btn btn-default">Back</a>
 	</form>
 @endsection

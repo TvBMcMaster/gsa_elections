@@ -18,5 +18,6 @@
 			<input type="text" name="description" class="form-control" value="{{$organization->description}}">
 		</div>
 		<button type="submit" class="btn btn-default">Update</button>
+		<a href="{{route('organizations.index')}}" class="btn btn-default">Back</a>
 	</form>
 @endsection

@@ -27,7 +27,16 @@
 				@endforeach
 			</select>
 		</div>
+		<div class="form-group">
+			<label for="role">Role</label>
+			<select class="form-control" name="role">
+				@foreach($roles as $role)
+					<option value={{$role->id}}>{{$role->name}}</option>
+				@endforeach
+			</select>
+		</div>
 		<button type='submit' class="btn btn-default">Submit</button>
+		<a href="{{route('users.index')}}" class="btn btn-default">Back</a>
 	</form>
 </div>
 @endsection

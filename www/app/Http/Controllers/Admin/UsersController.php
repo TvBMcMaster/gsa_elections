@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Organization;
+use App\Role;
 
 class UsersController extends Controller
 {
@@ -29,7 +30,8 @@ class UsersController extends Controller
     public function create()
     {
         $organizations = Organization::all();
-        return view('admin.users.create', compact('organizations'));
+        $roles = Role::orderBy('name', 'desc')->get();
+        return view('admin.users.create', compact('organizations', 'roles'));
     }
 
     /**
@@ -52,6 +54,7 @@ class UsersController extends Controller
         if (!$request->organization == -1) {
             $user->organization->associate($request->organization);
         }
+        $user->role->associate($request->role);
         $user->save();
 
         return redirect('/admin/users');
@@ -67,7 +70,8 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         $organizations = Organization::all();
-        return view('admin.users.edit', compact(['user', 'organizations']));
+        $roles = Role::all();
+        return view('admin.users.edit', compact(['user', 'organizations', 'roles']));
     }
 
     /**
@@ -96,7 +100,10 @@ class UsersController extends Controller
         $user->email = $request->email;
         if ($request->organization > 0) {  
             $user->organization_id = $request->organization;
-        } 
+        }
+        if ($request->role > 0) {  
+            $user->role->associate($request->role);
+        }
         $user->save();
         return redirect(route('users.index'));
     }
