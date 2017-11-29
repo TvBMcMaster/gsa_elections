@@ -28,9 +28,19 @@ Route::middleware(['auth'])->group(function(){
 |
 */
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function(){
-	Route::get('', 'Admin\DashboardController@index');
-	Route::get('dashboard', 'Admin\DashboardController@dashboard')->name('admin.dashboard');
-	Route::resource('users', 'Admin\UsersController');
-	Route::resource('organizations', 'Admin\OrganizationsController');
+Route::middleware(['auth', 'admin'])->prefix('admin')->namespace('Admin')->group(function(){
+	Route::get('', 'DashboardController@index');
+	Route::get('dashboard', 'DashboardController@dashboard')->name('admin.dashboard');
+	
+	Route::prefix('users')->group(function(){
+		Route::get('/', 'UsersController@index')->name('users.index');
+		Route::get('/new', 'UsersController@create')->name('users.create');
+		Route::post('/new', 'UsersController@store')->name('users.store');
+		Route::get('/{user}', 'UsersController@show')->name('users.show');
+		Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
+		Route::post('/{user}', 'UsersController@update')->name('users.update');
+		Route::post('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
+	});
+	
+	Route::resource('organizations', 'OrganizationsController');
 });

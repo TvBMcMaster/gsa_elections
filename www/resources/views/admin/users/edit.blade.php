@@ -4,7 +4,6 @@
 	<h1>Edit User</h1>
 	<a type="button" href="/admin/users" class="btn btn-warning">All Users</a>
 	<form method="POST" action="{{route('users.update', ['user'=>$user->id])}}">
-		<input name="_method" type="hidden" value="PUT">
 		{{ csrf_field() }}
 		<div class="form-group">
 			<label for="name">Name:</label>

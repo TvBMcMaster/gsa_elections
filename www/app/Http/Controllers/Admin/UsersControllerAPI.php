@@ -51,25 +51,24 @@ class UsersController extends Controller
         $user->name = $name;
         $user->email = $email;
         $user->password = $password;
-        if ($request->organization > 0) {
-            $user->organization_id = $request->organization;
+        if (!$request->organization == -1) {
+            $user->organization->associate($request->organization);
         }
-        if ($request->role > 0 ) {
-            $user->role_id = $request->role;
-        }
+        $user->role->associate($request->role);
         $user->save();
 
-        return redirect(route('users.index'));
+        return redirect('/admin/users');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  App\User $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
+        $user = User::find($id);
         $organizations = Organization::all();
         $roles = Role::all();
         return view('admin.users.edit', compact(['user', 'organizations', 'roles']));
@@ -78,11 +77,12 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  App\User $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::with('organization')->findOrFail($id);
         return view('admin.users.show')->with('user', $user);
     }
 
@@ -90,18 +90,19 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  App\User $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->organization > 0) {  
             $user->organization_id = $request->organization;
         }
         if ($request->role > 0) {  
-            $user->role_id = $request->role;
+            $user->role->associate($request->role);
         }
         $user->save();
         return redirect(route('users.index'));
@@ -110,12 +111,12 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  App\User $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
+        User::destroy($id);
         return redirect(route('users.index'));
     }
 }

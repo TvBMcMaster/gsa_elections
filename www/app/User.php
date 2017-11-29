@@ -8,6 +8,8 @@ use App\Role;
 
 class User extends Authenticatable
 {
+  protected $hidden = array('password', 'token');
+  
 	/**
 	  *	Role relationship
       *

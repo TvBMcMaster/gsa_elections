@@ -34,14 +34,18 @@
 							<span class="badge">{{ strtoupper($user->role->slug)}}</span>
 						</td>
 						<td>
-							<div class="btn-group btn-group-sm">
-            					<a type="button" class="btn btn-warning" href="{{route('users.edit', ['user'=>$user->id])}}">
-									<span class="glyphicon glyphicon-pencil"></span>
-								</a>
-        						<a class="btn btn-danger" href="#">
-        							<span class="glyphicon glyphicon-trash"></span>
-        						</a>
-            				</div>
+
+							<form method="POST" action="{{route('users.destroy', ['user'=>$user->id])}}">
+								{{ csrf_field()}}
+								<div class="btn-group btn-group-sm">
+	            					<a type="button" class="btn btn-warning" href="{{route('users.edit', ['user'=>$user->id])}}">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</a>
+	        						<button type="submit" class="btn btn-danger">
+	        							<span class="glyphicon glyphicon-trash"></span>
+	        						</button>
+            					</div>
+							</form>
 						</td>
 					</tr>
 				@endforeach

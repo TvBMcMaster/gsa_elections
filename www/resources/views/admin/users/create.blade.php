@@ -4,7 +4,7 @@
 <div class="container">
 	<h1>New User</h1>
 	<p>Create a new user</p>
-	<form method="post" action="/admin/users">
+	<form method="post" action="{{route('users.store')}}">
 		{{ csrf_field() }}
 		<div class="form-group">
 			<label for="name">Name:</label>

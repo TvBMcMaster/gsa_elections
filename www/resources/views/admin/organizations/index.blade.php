@@ -4,7 +4,7 @@
 	<h1>Organizations
 	<a class="btn btn-primary" href="{{route('organizations.create')}}">New Organization</a>
 	</h1>
-	
+
 	@if(count($organizations) > 0 )
 	<table class='table table-striped'>
 		<thead>
@@ -30,7 +30,7 @@
 					<td>{{ $organization->slug }}</td>
 					<td><span class="badge">{{ count($organization->users) }}</span></td>
 					<td>
-						<form method="delete" action="{{ route('organizations.destroy', ['organization'=>$organization->id]) }}" class="btn-group">
+						<form method="post" action="{{ route('organizations.destroy', ['organization'=>$organization->id]) }}" class="btn-group">
 							<div class="btn-group btn-group-sm">
 								<a type="button" class="btn btn-warning" href="{{route('organizations.edit', ['organization'=> $organization->id])}}">
 									<span class="glyphicon glyphicon-pencil"></span>
