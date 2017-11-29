@@ -96,6 +96,7 @@ class OrganizationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Organization::destroy($id);
+        return redirect(route('organizations.index'));
     }
 }
