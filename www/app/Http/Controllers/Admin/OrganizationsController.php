@@ -49,24 +49,22 @@ class OrganizationsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  App\Organization $organization
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Organization $organization)
     {
-        $organization = Organization::with('users')->findOrFail($id);
         return view('admin.organizations.show', compact('organization'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  App\Organization $organization
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Organization $organization)
     {
-        $organization = Organization::findOrFail($id);
         return view('admin.organizations.edit', compact('organization'));
     }
 
@@ -74,13 +72,11 @@ class OrganizationsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Organization $organization
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Organization $organization)
     {
-        $organization = Organization::findOrFail($id);
-
         $organization->name = $request->name;
         $organization->slug = $request->slug;
         $organization->description = $request->description;
@@ -91,12 +87,12 @@ class OrganizationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  App\Organization $organization
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Organization $organization)
     {
-        Organization::destroy($id);
+        $organization->delete();
         return redirect(route('organizations.index'));
     }
 }

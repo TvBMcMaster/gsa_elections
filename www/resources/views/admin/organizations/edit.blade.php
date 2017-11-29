@@ -2,8 +2,7 @@
 
 @section('admin_content')
 	<h1>Edit Organization</h1>
-	<form method="POST" action="{{route('organizations.update', ['organization'=>$organization->id])}}" class="form">
-		<input name="_method" type="hidden" value="PUT">
+	<form method="POST" action="{{route('organizations.update', ['organization'=>$organization->slug])}}" class="form">
 		{{ csrf_field() }}
 		<div class="form-group">
 			<label for="name">Name:</label>

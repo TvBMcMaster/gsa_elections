@@ -42,5 +42,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->namespace('Admin')->group
 		Route::post('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
 	});
 	
-	Route::resource('organizations', 'OrganizationsController');
+	Route::prefix('organizations')->group(function(){
+		Route::get('/', 'OrganizationsController@index')->name('organizations.index');
+		Route::get('/new', 'OrganizationsController@create')->name('organizations.create');
+		Route::post('/new', 'OrganizationsController@store')->name('organizations.store');
+		Route::get('/{organization}', 'OrganizationsController@show')->name('organizations.show');
+		Route::get('/{organization}/edit', 'OrganizationsController@edit')->name('organizations.edit');
+		Route::post('/{organization}', 'OrganizationsController@update')->name('organizations.update');
+		Route::post('/{organization}/delete', 'OrganizationsController@destroy')->name('organizations.destroy');
+	});
 });

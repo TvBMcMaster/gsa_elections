@@ -22,7 +22,7 @@
 				<tr>
 					<td>{{ $organization->id }}</td>
 					<td>
-						<a href="{{ route('organizations.show', ['organization'=>$organization->id]) }}">
+						<a href="{{ route('organizations.show', ['organization'=>$organization->slug]) }}">
 							{{ $organization->name }}
 						</a>
 					</td>
@@ -30,9 +30,10 @@
 					<td>{{ $organization->slug }}</td>
 					<td><span class="badge">{{ count($organization->users) }}</span></td>
 					<td>
-						<form method="post" action="{{ route('organizations.destroy', ['organization'=>$organization->id]) }}" class="btn-group">
+						<form method="post" action="{{ route('organizations.destroy', ['organization'=>$organization->slug]) }}" class="btn-group">
+							{{ csrf_field() }}
 							<div class="btn-group btn-group-sm">
-								<a type="button" class="btn btn-warning" href="{{route('organizations.edit', ['organization'=> $organization->id])}}">
+								<a type="button" class="btn btn-warning" href="{{route('organizations.edit', ['organization'=> $organization->slug])}}">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 								<button type="submit" class="btn btn-danger">
