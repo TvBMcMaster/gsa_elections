@@ -13,11 +13,12 @@
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function(){
-	Route::get('/', 'DashboardController@index');
-	Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');	
-});
+Route::get('/', 'DashboardController@index');
 
+Route::middleware(['auth'])->group(function(){
+	
+Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');	
+});
 
 /*
 |---------------------
@@ -29,7 +30,10 @@ Route::middleware(['auth'])->group(function(){
 */
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->namespace('Admin')->group(function(){
-	Route::get('', 'DashboardController@index');
+	Route::get('', function() {
+		return redirect('/dashboard');
+	});
+	
 	Route::get('dashboard', 'DashboardController@dashboard')->name('admin.dashboard');
 	
 	Route::prefix('users')->group(function(){
