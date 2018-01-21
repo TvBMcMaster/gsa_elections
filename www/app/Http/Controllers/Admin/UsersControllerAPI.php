@@ -9,7 +9,7 @@ use App\User;
 use App\Organization;
 use App\Role;
 
-class UsersController extends Controller
+class UsersControllerAPI extends Controller
 {
     /**
      * Display a listing of the resource.
