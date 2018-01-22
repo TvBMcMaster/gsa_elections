@@ -25,6 +25,24 @@ class IndexTest extends TestCase
     	$user = factory(\App\User::class)->states('user')->create();
     	$this->actingAs($user)
     		->get('/')
-    		->assertSee($user->name);	
+    		->assertSee($user->name);
+    }
+
+    public function testUserAdmin()
+    {
+    	$user = factory(\App\User::class)->states('user')->create();
+    	$this->actingAs($user)
+    		->get('/admin')
+    		->assertStatus(401);
+    } 
+
+    public function testAdminLoggedIn()
+    {
+    	$admin = factory(\App\User::class)->states('admin')->create();
+    	$this->actingAs($admin)
+    	    ->get('/admin/dashboard')
+    	    ->assertStatus(200)
+    	    ->assertSee($admin->name);
     }
 }
+
