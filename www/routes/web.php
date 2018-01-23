@@ -13,12 +13,10 @@
 
 Auth::routes();
 
-Route::get('/', 'DashboardController@index');
-
-Route::middleware(['auth'])->group(function(){
-	
-Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');	
+Route::get('/', function() {
+	return view('index');
 });
+
 
 /*
 |---------------------
