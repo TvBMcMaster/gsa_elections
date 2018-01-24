@@ -7,7 +7,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class IndexTest extends TestCase
 {
-	
+    use RefreshDatabase;
+    	
     /**
      * A basic test example.
      *

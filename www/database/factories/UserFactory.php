@@ -12,7 +12,6 @@ use Faker\Generator as Faker;
 | model instances for testing / seeding your application's database.
 |
 */
-$role_user = App\Role::where('slug', 'user')->first();
 
 $factory->define(App\User::class, function (Faker $faker) {
     static $password;
@@ -30,5 +29,5 @@ $factory->state(App\User::class, 'admin', [
 ]);
 
 $factory->state(App\User::class, 'user', [
-	'role_id' => $role_user->id
+	'role_id' => App\Role::where('slug', 'user')->first()->id
 ]);

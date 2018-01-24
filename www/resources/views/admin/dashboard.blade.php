@@ -1,5 +1,7 @@
 @extends('admin.base')
 
+@section('title', 'Admin Dashboard')
+
 @section('admin_content')
 <div class="row">
     <div class="col-md-8 col-md-offset-2">

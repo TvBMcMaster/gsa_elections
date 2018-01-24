@@ -9,6 +9,7 @@ base:
     - php.gd
     - php.zip
     - php.pgsql
+    - php.sqlite
     - php.fpm
     - postgres
     - nginx.ng

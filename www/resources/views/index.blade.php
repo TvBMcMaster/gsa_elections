@@ -1,5 +1,7 @@
 @extends('layouts.app');
 
+@section('title', 'Welcome')
+
 @section('navbar')
     @include('includes.navbar')
 @endsection

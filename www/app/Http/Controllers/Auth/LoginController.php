@@ -37,7 +37,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = 'index';
     
     /**
      * Get the post register / login redirect path.
@@ -45,10 +45,10 @@ class LoginController extends Controller
      * @return string
      */
     public function _authenticated($request, $user) {
-        if ($user->hasRole('administrator')) {
+        if ($user->hasRole('admin')) {
             return redirect()->intended(route('admin.dashboard'));
         } else {
-            return redirect()->intended(route('dashboard'));
+            return redirect()->intended(route('index'));
         }
     }
 }

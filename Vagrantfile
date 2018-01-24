@@ -12,11 +12,12 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "bento/ubuntu-16.10"
+  # config.vm.box = "bento/ubuntu-16.10"
+  config.vm.box = "ubuntu/xenial64"
 
-  config.vm.define "homestead" do |homestead|
+  config.vm.define "electio" do |electio|
 
-    homestead.vm.hostname = "homestead"
+    electio.vm.hostname = "electio"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -27,7 +28,7 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
-    homestead.vm.network "forwarded_port", guest: 80, host: 12501
+    electio.vm.network "forwarded_port", guest: 80, host: 12501
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -36,7 +37,7 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-    homestead.vm.network "private_network", ip: "192.168.60.15"
+    electio.vm.network "private_network", ip: "192.168.60.15"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -47,14 +48,14 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-    homestead.vm.synced_folder "salt/pillar", "/srv/pillar"
-    homestead.vm.synced_folder "salt/states", "/srv/salt"
-    homestead.vm.synced_folder "www", "/var/www/electio", :owner => "www-data", group: "www-data", :mount_options => ["dmode=775", "fmode=664"]
+    electio.vm.synced_folder "salt/pillar", "/srv/pillar"
+    electio.vm.synced_folder "salt/states", "/srv/salt"
+    electio.vm.synced_folder "www", "/var/www/electio", :owner => "www-data", group: "www-data", :mount_options => ["dmode=775", "fmode=664"]
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-    homestead.vm.provider "virtualbox" do |vb| 
+    electio.vm.provider "virtualbox" do |vb| 
     # Customize the amount of memory on the VM:
       vb.memory = "1024"
 
@@ -65,7 +66,7 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you are using for more
   # information on available options.
 
-    homestead.vm.provision :salt do |salt|
+    electio.vm.provision :salt do |salt|
       salt.masterless = true
       salt.minion_config = "salt/minion"
       salt.run_highstate = true
