@@ -5,10 +5,10 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class IndexTest extends TestCase
+class AuthTest extends TestCase
 {
     use RefreshDatabase;
-    	
+
     /**
      * A basic test example.
      *
@@ -18,12 +18,12 @@ class IndexTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertSuccessful();
     }
 
-    public function testLoggedIn()
+    public function testUserLoggedIn()
     {
-    	$user = factory(\App\User::class)->states('user')->create();
+    	$user = factory(\App\User::class)->create();
     	$this->actingAs($user)
     		->get('/')
     		->assertSee($user->name);
@@ -31,17 +31,17 @@ class IndexTest extends TestCase
 
     public function testUserAdmin()
     {
-    	$user = factory(\App\User::class)->states('user')->create();
+    	$user = factory(\App\User::class)->create();
     	$this->actingAs($user)
     		->get('/admin')
-    		->assertStatus(401);
+    		->assertRedirect('admin/login');
     } 
 
     public function testAdminLoggedIn()
     {
-    	$admin = factory(\App\User::class)->states('admin')->create();
-    	$this->actingAs($admin)
-    	    ->get('/admin/dashboard')
+    	$admin = factory(\App\Admin::class)->create();
+    	$this->actingAs($admin, 'admin')
+    	    ->get('/admin')
     	    ->assertStatus(200)
     	    ->assertSee($admin->name);
     }

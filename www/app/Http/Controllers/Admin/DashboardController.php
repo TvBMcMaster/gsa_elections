@@ -8,23 +8,23 @@ use App\Http\Controllers\Controller;
 class DashboardController extends Controller
 {   
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
+    /**
       * Redirect to dashboard if authenticated
       * 
       * @return \Illuminate\Http\Response
       */
     public function index()
     {
-        return redirect(route('admin.dashboard'));
+        return view('admin.dashboard');
     }
-    
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
-    public function dashboard()
-    {
-    	return view('admin.dashboard');
-    }
 }

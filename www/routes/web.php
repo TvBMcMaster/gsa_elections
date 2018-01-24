@@ -23,7 +23,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/', function() {
-	return view('index');
+	return view('welcome');
 });
 
 
@@ -36,30 +36,32 @@ Route::get('/', function() {
 |
 */
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->namespace('Admin')->group(function(){
-	Route::get('', function() {
-		return redirect('/dashboard');
-	});
-	
-	Route::get('dashboard', 'DashboardController@dashboard')->name('admin.dashboard');
-	
-	Route::prefix('users')->group(function(){
-		Route::get('/', 'UsersController@index')->name('users.index');
-		Route::get('/new', 'UsersController@create')->name('users.create');
-		Route::post('/new', 'UsersController@store')->name('users.store');
-		Route::get('/{user}', 'UsersController@show')->name('users.show');
-		Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
-		Route::post('/{user}', 'UsersController@update')->name('users.update');
-		Route::post('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
-	});
-	
-	Route::prefix('organizations')->group(function(){
-		Route::get('/', 'OrganizationsController@index')->name('organizations.index');
-		Route::get('/new', 'OrganizationsController@create')->name('organizations.create');
-		Route::post('/new', 'OrganizationsController@store')->name('organizations.store');
-		Route::get('/{organization}', 'OrganizationsController@show')->name('organizations.show');
-		Route::get('/{organization}/edit', 'OrganizationsController@edit')->name('organizations.edit');
-		Route::post('/{organization}', 'OrganizationsController@update')->name('organizations.update');
-		Route::post('/{organization}/delete', 'OrganizationsController@destroy')->name('organizations.destroy');
-	});
+Route::prefix('admin')->group(function(){
+	Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+
+	Route::namespace('Admin')->group(function(){
+		Route::get('/', 'DashboardController@index')->name('admin.dashboard');	
+
+		Route::prefix('users')->group(function(){
+			Route::get('/', 'UsersController@index')->name('users.index');
+			Route::get('/new', 'UsersController@create')->name('users.create');
+			Route::post('/new', 'UsersController@store')->name('users.store');
+			Route::get('/{user}', 'UsersController@show')->name('users.show');
+			Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
+			Route::post('/{user}', 'UsersController@update')->name('users.update');
+			Route::post('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
+		});
+
+		Route::prefix('organizations')->group(function(){
+			Route::get('/', 'OrganizationsController@index')->name('organizations.index');
+			Route::get('/new', 'OrganizationsController@create')->name('organizations.create');
+			Route::post('/new', 'OrganizationsController@store')->name('organizations.store');
+			Route::get('/{organization}', 'OrganizationsController@show')->name('organizations.show');
+			Route::get('/{organization}/edit', 'OrganizationsController@edit')->name('organizations.edit');
+			Route::post('/{organization}', 'OrganizationsController@update')->name('organizations.update');
+			Route::post('/{organization}/delete', 'OrganizationsController@destroy')->name('organizations.destroy');
+		});
+	});	
 });
+

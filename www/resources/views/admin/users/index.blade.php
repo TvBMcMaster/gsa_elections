@@ -13,7 +13,6 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th>Organization</th>
-					<th>Role</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -29,9 +28,6 @@
 									{{$user->organization->name}}
 								</a>
 							@endif
-						</td>
-						<td>	
-							<span class="badge">{{ strtoupper($user->role->slug)}}</span>
 						</td>
 						<td>
 
