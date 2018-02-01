@@ -23,7 +23,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::with('organization')->get();
+        $users = User::paginate(25);
         return view('admin.users.index')->with('users', $users);
     }
 

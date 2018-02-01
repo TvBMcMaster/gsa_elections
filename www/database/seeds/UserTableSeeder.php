@@ -25,11 +25,10 @@ class UserTableSeeder extends Seeder
 		$user_test = User::create([
     		"name" => "Dev User",
     		"email" => "user@test.com",
-    		"password" => bcrypt("user123")
+    		"password" => bcrypt("user123"),
+            "organization_id" => $test_org->id,
     	]);
-        
-        $user_test->organization()->associate($test_org);
-		
+        		
         $user_test->save();
 
     }

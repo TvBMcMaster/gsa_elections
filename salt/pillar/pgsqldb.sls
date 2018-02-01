@@ -53,9 +53,16 @@ postgres:
     homestead:
       owner: 'homestead'
 
+    homestead_test:
+      owner: 'homestead'
+
   acls:
+    - ['local', 'homestead', 'homestead', 'md5']
+    - ['local', 'homestead_test', 'homestead', 'md5']
     - ['host', 'homestead', 'homestead', '0.0.0.0/0', 'md5']
     - ['host', 'homestead', 'homestead', '::/0', 'md5']
+    - ['host', 'homestead_test', 'homestead', '0.0.0.0/0', 'md5']
+    - ['host', 'homestead_test', 'homestead', '::/0', 'md5']
 
   postgresconf: |
     listen_addresses = '*'  # listen on all interfaces

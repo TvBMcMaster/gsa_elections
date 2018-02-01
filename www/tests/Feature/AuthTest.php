@@ -21,17 +21,25 @@ class AuthTest extends TestCase
         $response->assertSuccessful();
     }
 
+    public function createUser() {
+        $organization = factory(\App\Organization::class)->create();
+        return factory(\App\User::class)->create([
+            'organization_id' => $organization->id,
+        ]);
+    }
+
     public function testUserLoggedIn()
     {
-    	$user = factory(\App\User::class)->create();
+        $user = $this->createUser();
+
     	$this->actingAs($user)
     		->get('/')
-    		->assertSee($user->name);
+    		->assertSee(htmlentities($user->name));
     }
 
     public function testUserAdmin()
     {
-    	$user = factory(\App\User::class)->create();
+        $user = $this->createUser();    	
     	$this->actingAs($user)
     		->get('/admin')
     		->assertRedirect('admin/login');
@@ -42,8 +50,8 @@ class AuthTest extends TestCase
     	$admin = factory(\App\Admin::class)->create();
     	$this->actingAs($admin, 'admin')
     	    ->get('/admin')
-    	    ->assertStatus(200)
-    	    ->assertSee($admin->name);
+    	    ->assertSuccessful()
+    	    ->assertSee(htmlentities($admin->name));
     }
 }
 

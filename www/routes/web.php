@@ -26,6 +26,15 @@ Route::get('/', function() {
 	return view('welcome');
 });
 
+/*
+|-----------------------
+|  Organization Routes
+|-----------------------
+*/
+
+
+Route::get('/{organization}', 'OrganizationController@index');
+
 
 /*
 |---------------------
@@ -41,7 +50,7 @@ Route::prefix('admin')->group(function(){
 	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
 
 	Route::namespace('Admin')->group(function(){
-		Route::get('/', 'DashboardController@index')->name('admin.dashboard');	
+		Route::get('', 'DashboardController@index')->name('admin.dashboard');	
 
 		Route::prefix('users')->group(function(){
 			Route::get('/', 'UsersController@index')->name('users.index');

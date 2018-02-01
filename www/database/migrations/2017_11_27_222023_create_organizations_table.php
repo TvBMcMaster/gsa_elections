@@ -24,6 +24,13 @@ class CreateOrganizationsTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('organization_id')->nullable()->unsigned();
         });
+
+        /*
+         * Ugly hack to solve SQLite issue with non nullable columns being added
+         */
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('organization_id')->nullable(false)->change();
+        });
     }
 
     /**
