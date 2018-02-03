@@ -71,7 +71,7 @@ Route::name('admin.')->prefix('/admin')->group(function(){
 |-----------------------
 */
 
-Route::prefix('{organization}')->group(function(){
+Route::prefix('{organization}')->middleware(['org_user'])->group(function(){
 	Route::get('', 'OrganizationController@index');
 	Route::get('/users', 'OrganizationController@showUsers')->name('organizations.users');
 	

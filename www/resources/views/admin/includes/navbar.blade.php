@@ -11,8 +11,8 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+            <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
+                {{ config('app.name', 'Laravel').' Admin' }}
             </a>
         </div>
 
@@ -33,7 +33,7 @@
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                    {{ Auth::user()->name }} <span class="caret"></span>
+                    {{ Auth::guard('admin')->user()->name }} <span class="caret"></span>
                 </a>
 
                 <ul class="dropdown-menu">

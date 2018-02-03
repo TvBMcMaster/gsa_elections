@@ -16,7 +16,11 @@
 <body>
     <div id="app">
         @section('navbar')
-            @include('includes.navbar')
+            @auth('admin')
+                @include('admin.includes.navbar')
+            @else
+                @include('includes.navbar')
+            @endauth
         @show
 
         <div class='container'>

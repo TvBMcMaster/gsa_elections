@@ -7,6 +7,10 @@ use App\Organization;
 
 class OrganizationController extends Controller
 {
+	public function __construct(){
+       
+    }
+
     public function index(Organization $organization) {
     	return view('organizations.index', compact('organization'));
     }
