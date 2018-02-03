@@ -33,7 +33,7 @@ Route::get('/', function() {
 */
 
 
-Route::get('/{organization}', 'OrganizationController@index');
+/*Route::get('/{organization}', 'OrganizationController@index');*/
 
 
 /*
@@ -45,11 +45,12 @@ Route::get('/{organization}', 'OrganizationController@index');
 |
 */
 
-Route::prefix('admin')->group(function(){
+
+Route::prefix('/admin')->group(function(){
 	Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
 
-	Route::namespace('Admin')->group(function(){
+	Route::namespace('Admin')->middleware('auth:admin')->group(function(){
 		Route::get('', 'DashboardController@index')->name('admin.dashboard');	
 
 		Route::prefix('users')->group(function(){

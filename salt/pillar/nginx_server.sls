@@ -23,12 +23,14 @@ nginx:
 
               - server_name: 'electio.dev'
               - root: "/var/www/electio/public"
-              - index
+              - index:
                 - index.html
                 - index.htm
                 - index.php
               - charset:
                 - utf-8
+              - include:
+                - /etc/nginx/mime.types
 
               - error_page 404:
                 - /index.php?$query_string
