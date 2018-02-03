@@ -2,7 +2,7 @@
 
 @section('admin_content')
 	<h1>Edit Organization</h1>
-	<form method="POST" action="{{route('organizations.update', ['organization'=>$organization->slug])}}" class="form">
+	<form method="POST" action="{{route('admin.organizations.update', ['organization'=>$organization->slug])}}" class="form">
 		{{ csrf_field() }}
 		<div class="form-group">
 			<label for="name">Name:</label>
@@ -17,6 +17,6 @@
 			<input type="text" name="description" class="form-control" value="{{$organization->description}}">
 		</div>
 		<button type="submit" class="btn btn-default">Update</button>
-		<a href="{{route('organizations.index')}}" class="btn btn-default">Back</a>
+		<a href="{{route('admin.organizations.index')}}" class="btn btn-default">Back</a>
 	</form>
 @endsection

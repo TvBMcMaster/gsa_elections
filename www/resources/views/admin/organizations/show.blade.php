@@ -18,7 +18,7 @@
 			<tbody>
 			@foreach($organization->users as $user)
 				<tr>
-					<td><a href="{{route('users.show', ['user'=>$user->id])}}">{{$user->name}}</a></td>
+					<td><a href="{{route('admin.users.show', ['user'=>$user->id])}}">{{$user->name}}</a></td>
 					<td>{{$user->email}}</td>
 				</tr>
 			@endforeach
@@ -27,5 +27,5 @@
 	@else
 		<p>No users assigned to this organization.</p>
 	@endif
-	<a href="{{route('organizations.index')}}" class="btn btn-default">Back</a>
+	<a href="{{route('admin.organizations.index')}}" class="btn btn-default">Back</a>
 @endsection

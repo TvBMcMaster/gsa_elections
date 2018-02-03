@@ -3,7 +3,7 @@
 @section('admin_content')
 	<h1>Edit User</h1>
 	<a type="button" href="/admin/users" class="btn btn-warning">All Users</a>
-	<form method="POST" action="{{route('users.update', ['user'=>$user->id])}}">
+	<form method="POST" action="{{route('admin.users.update', ['user'=>$user->id])}}">
 		{{ csrf_field() }}
 		<div class="form-group">
 			<label for="name">Name:</label>
@@ -22,16 +22,7 @@
 				@endforeach
 			</select>
 		</div>
-		<div class="form-group">
-			<label for="role">Role</label>
-			<select class="form-control" name="role">
-				<option value=-1>(None)</option>
-				@foreach($roles as $role)
-					<option value={{$role->id}} @if($user->hasRole($role->name)) selected="selected"@endif>{{$role->name}}</option>
-				@endforeach
-			</select>
-		</div>
 		<button type="submit" class="btn btn-default">Update</button>
-		<a href="{{route('users.index')}}" class="btn btn-default">Back</a>
+		<a href="{{route('admin.users.index')}}" class="btn btn-default">Back</a>
 	</form>
 @endsection

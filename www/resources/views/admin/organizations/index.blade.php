@@ -2,7 +2,7 @@
 
 @section('admin_content')
 	<h1>Organizations
-	<a class="btn btn-primary" href="{{route('organizations.create')}}">New Organization</a>
+	<a class="btn btn-primary" href="{{route('admin.organizations.create')}}">New Organization</a>
 	</h1>
 
 	@if(count($organizations) > 0 )
@@ -22,7 +22,7 @@
 				<tr>
 					<td>{{ $organization->id }}</td>
 					<td>
-						<a href="{{ route('organizations.show', ['organization'=>$organization->slug]) }}">
+						<a href="{{ route('admin.organizations.show', ['organization'=>$organization->slug]) }}">
 							{{ $organization->name }}
 						</a>
 					</td>
@@ -30,10 +30,10 @@
 					<td>{{ $organization->slug }}</td>
 					<td><span class="badge">{{ count($organization->users) }}</span></td>
 					<td>
-						<form method="post" action="{{ route('organizations.destroy', ['organization'=>$organization->slug]) }}" class="btn-group">
+						<form method="post" action="{{ route('admin.organizations.destroy', ['organization'=>$organization->slug]) }}" class="btn-group">
 							{{ csrf_field() }}
 							<div class="btn-group btn-group-sm">
-								<a type="button" class="btn btn-warning" href="{{route('organizations.edit', ['organization'=> $organization->slug])}}">
+								<a type="button" class="btn btn-warning" href="{{route('admin.organizations.edit', ['organization'=> $organization->slug])}}">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 								<button type="submit" class="btn btn-danger">

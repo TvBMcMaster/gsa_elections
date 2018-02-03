@@ -15,9 +15,13 @@
 </head>
 <body>
     <div id="app">
-        @yield('navbar')
+        @section('navbar')
+            @include('includes.navbar')
+        @show
 
-        @yield('content')
+        <div class='container'>
+            @yield('content')
+        </div>
     </div>
 
     <!-- Scripts -->

@@ -27,16 +27,6 @@ Route::get('/', function() {
 });
 
 /*
-|-----------------------
-|  Organization Routes
-|-----------------------
-*/
-
-
-/*Route::get('/{organization}', 'OrganizationController@index');*/
-
-
-/*
 |---------------------
 |  Admin Routes
 |---------------------
@@ -46,12 +36,12 @@ Route::get('/', function() {
 */
 
 
-Route::prefix('/admin')->group(function(){
-	Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
-	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+Route::name('admin.')->prefix('/admin')->group(function(){
+	Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('login');
+	Route::post('/login', 'Auth\AdminLoginController@login')->name('login.submit');
 
 	Route::namespace('Admin')->middleware('auth:admin')->group(function(){
-		Route::get('', 'DashboardController@index')->name('admin.dashboard');	
+		Route::get('', 'DashboardController@index')->name('dashboard');	
 
 		Route::prefix('users')->group(function(){
 			Route::get('/', 'UsersController@index')->name('users.index');
@@ -75,3 +65,14 @@ Route::prefix('/admin')->group(function(){
 	});	
 });
 
+/*
+|-----------------------
+|  Organization Routes
+|-----------------------
+*/
+
+Route::prefix('{organization}')->group(function(){
+	Route::get('', 'OrganizationController@index');
+	Route::get('/users', 'OrganizationController@showUsers')->name('organizations.users');
+	
+});

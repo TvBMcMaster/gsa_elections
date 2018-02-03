@@ -20,10 +20,10 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="{{ route('users.index') }}">Users</a>
+                    <a href="{{ route('admin.users.index') }}">Users</a>
                 </li>
                 <li>
-                    <a href="{{ route('organizations.index') }}">Organizations</a>
+                    <a href="{{ route('admin.organizations.index') }}">Organizations</a>
                 </li>
             </ul>
 

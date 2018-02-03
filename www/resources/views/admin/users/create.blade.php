@@ -4,7 +4,7 @@
 <div class="container">
 	<h1>New User</h1>
 	<p>Create a new user</p>
-	<form method="post" action="{{route('users.store')}}">
+	<form method="post" action="{{route('admin.users.store')}}">
 		{{ csrf_field() }}
 		<div class="form-group">
 			<label for="name">Name:</label>
@@ -36,7 +36,7 @@
 			</select>
 		</div>
 		<button type='submit' class="btn btn-default">Submit</button>
-		<a href="{{route('users.index')}}" class="btn btn-default">Back</a>
+		<a href="{{route('admin.users.index')}}" class="btn btn-default">Back</a>
 	</form>
 </div>
 @endsection
