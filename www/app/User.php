@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 class User extends Authenticatable
 {
   protected $hidden = array('password', 'token');
+  public static $isAdmin = False;
   
   /**
     * Organization relationship
@@ -18,5 +19,9 @@ class User extends Authenticatable
   {
       return $this->belongsTo('App\Organization');
   }
-	
+  
+  public function isAdmin(){
+    return self::$isAdmin;
+  }
+
 }

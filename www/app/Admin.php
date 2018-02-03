@@ -11,6 +11,7 @@ class Admin extends Authenticatable
 	use Notifiable;
 
 	protected $guard = 'admin';
+    public static $isAdmin = True;
 
 	/**
      * The attributes that are mass assignable.
@@ -29,4 +30,8 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAdmin() {
+        return self::$isAdmin;
+    }
 }

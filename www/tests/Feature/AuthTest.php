@@ -31,10 +31,12 @@ class AuthTest extends TestCase
     public function testUserLoggedIn()
     {
         $user = $this->createUser();
+        $this->assertFalse($user::$isAdmin);
 
-    	$this->actingAs($user)
-    		->get('/')
-    		->assertSee(htmlentities($user->name));
+        $this->actingAs($user)
+            ->get('/')
+            ->assertSee(htmlentities($user->name));
+
     }
 
     public function testUserAdmin()
@@ -48,6 +50,7 @@ class AuthTest extends TestCase
     public function testAdminLoggedIn()
     {
     	$admin = factory(\App\Admin::class)->create();
+        $this->assertTrue($admin->isAdmin());
     	$this->actingAs($admin, 'admin')
     	    ->get('/admin')
     	    ->assertSuccessful()
